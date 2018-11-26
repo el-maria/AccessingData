@@ -48,7 +48,7 @@ namespace AccessingData
         }
         private void DataReaderFromOleDB()
         {
-            string strSQL = "SELECT * FROM Employees";
+            string strSQL = "SELECT * FROM Customers";
 
             try
             {
@@ -68,7 +68,7 @@ namespace AccessingData
                            
                             while (dr.Read())
                             {
-                                demoList.Items.Add(string.Format("{0} {1}: {2}", dr["FirstName"], dr["LastName"], dr["HomePhone"]));
+                                demoList.Items.Add(string.Format("Customer: {0}, Company name: {1}, Contact name: {2}, Contact title: {3} ", dr["CustomerID"], dr["CompanyName"], dr["ContactName"], dr["ContactTitle"] ));
                             }
                         }
                     }
