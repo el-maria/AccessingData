@@ -196,6 +196,8 @@ namespace AccessingData
             DataTable dt = new DataTable();
             dt.Columns.Add("FileName", typeof(System.String));
             dt.Columns.Add("Size", typeof(System.Int64));
+            //new for 4
+            dt.Columns.Add("ReadOnly File", typeof(System.String));
 
             DataRow dr = default(DataRow);
             DirectoryInfo dir = new DirectoryInfo("C:\\");
@@ -204,6 +206,8 @@ namespace AccessingData
                 dr = dt.NewRow();
                 dr[0] = fi.Name;
                 dr[1] = fi.Length;
+                //new for 4
+                dr[2] = fi.IsReadOnly;
                 dt.Rows.Add(dr);
             }
 
