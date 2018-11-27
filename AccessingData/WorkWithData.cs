@@ -140,20 +140,34 @@ namespace AccessingData
         {
             string strSQL = "SELECT * FROM Products WHERE CategoryID = 1";
 
+            //new for 3
+            string strSQL1 = "SELECT * FROM Employees WHERE City = 'London'";
             try
             {
                 using (OleDbDataAdapter adapter = new OleDbDataAdapter(strSQL, Properties.Settings.Default.OleDbConnectionString))
                 {
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
+                    DataTable dt1 = new DataTable();
+                    adapter.Fill(dt1);
 
+                    //new for 3
+                    OleDbDataAdapter adapter1 = new OleDbDataAdapter(strSQL1, Properties.Settings.Default.OleDbConnectionString);
+                    DataTable dt2 = new DataTable();
+                    adapter1.Fill(dt2); 
+                   
 
-                    foreach (DataColumn dc in dt.Columns)
+                    foreach (DataColumn dc in dt1.Columns)
                     {
                         demoList.Items.Add(string.Format("{0} ({1})", dc.ColumnName, dc.DataType));
                     }
 
-                    demoGrid.DataSource = dt;
+                    //new for 3
+                    foreach (DataColumn dc in dt2.Columns)
+                    {
+                        demoList.Items.Add(string.Format("{0} ({1})", dc.ColumnName, dc.AllowDBNull));
+                    }
+
+                    //new for 3
+                    demoGrid.DataSource = dt2;
                 }
 
             }
