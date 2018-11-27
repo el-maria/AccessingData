@@ -92,6 +92,9 @@ namespace AccessingData
         {
             string strSQL = "SELECT * FROM Products WHERE CategoryID=1";
 
+            //new for 2
+            string strSQL1 = "SELECT ProductName,SupplierID FROM Products WHERE CategoryID=1";
+
             try
             {
                 using (OleDbDataAdapter adapter = new OleDbDataAdapter(strSQL, Properties.Settings.Default.OleDbConnectionString))
@@ -100,9 +103,12 @@ namespace AccessingData
                     DataSet ds = new DataSet();
                     adapter.Fill(ds, "ProductInfo");
 
+                    //new for 2
+                    OleDbDataAdapter adapter1 = new OleDbDataAdapter(strSQL1, Properties.Settings.Default.OleDbConnectionString);
+                    adapter1.Fill(ds,"product");
 
                     demoList.DataSource = ds.Tables["ProductInfo"];
-                    demoList.DisplayMember = "ProductName";
+                    demoList.DisplayMember = "ProductID";
 
                     // Εναλλάκτικά θα μπορούσαμε να γεμίσουμε το Listbox
                     // παίρνοντας μία μία τις γραμμές του πίνακα και προσθέτοντάς τες
@@ -112,11 +118,11 @@ namespace AccessingData
                     //    demoList.Items.Add(dr("ProductName").ToString)
                     //Next dr
 
-                    // Want to bind a grid? It's this easy:
-                    demoGrid.DataSource = ds.Tables["ProductInfo"];
-
+                    //demoGrid.DataSource = ds.Tables["ProductInfo"];
+                    
+                    //new for 2
+                    demoGrid.DataSource = ds.Tables["product"];
                 }
-
             }
             catch (Exception ex)
             {
@@ -124,8 +130,7 @@ namespace AccessingData
             }
         }
 
-
-
+        //erwtima 3
         private void sqlDataSetButton_Click(System.Object sender, System.EventArgs e)
         {
             PrepareDemo(true);
