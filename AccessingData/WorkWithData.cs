@@ -214,5 +214,55 @@ namespace AccessingData
             // Bind the DataGridView to this DataTable.
             demoGrid.DataSource = dt;
         }
+
+        //new for 5 in excersise 2
+        private void WorkWithData_Load(object sender, EventArgs e)
+        {
+            PrepareDemo(true);
+            LoadFromSQL();
+        }
+        private void LoadFromSQL()
+        {
+            string strSQL = "SELECT EmployeeID, LastName FROM Employees";
+
+            try
+            {
+               
+                    using (OleDbConnection cnn = new OleDbConnection(Properties.Settings.Default.OleDbConnectionString))
+                    {
+                        using (OleDbCommand cmd = new OleDbCommand(strSQL, cnn))
+                        {
+                            cnn.Open();
+
+                            using (OleDbDataReader dr = cmd.ExecuteReader())
+                            {
+                            DataTable dt = new DataTable();
+                            // dt.Columns.Add("EmployeeID", typeof(int));
+                            dt.Columns.Add("LastName", typeof(string));
+                            //dt.Columns.Add("FirstName", typeof(string));
+
+                            
+                            dt.Load(dr);
+                           comboBox1.ValueMember = "EmployeeID";
+                            comboBox1.DisplayMember = "LastName";
+                            comboBox1.DataSource = dt;
+                           
+                            }
+                        }
+                    }
+             
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label1.Text = comboBox1.SelectedValue.ToString();
+        }
     }
 }
