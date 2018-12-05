@@ -86,7 +86,7 @@ namespace AccessingData
         private void oleDbDataSetButton_Click(System.Object sender, System.EventArgs e)
         {
             PrepareDemo(true);
-            DataSetFromOleDb();
+            DataSetFromOleDb(); 
         }
         private void DataSetFromOleDb()
         {
@@ -263,6 +263,11 @@ namespace AccessingData
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             label1.Text = comboBox1.SelectedValue.ToString();
+
+            //new for 6
+            //string strSQL1 = "SELECT * FROM Orders";
+            //if (comboBox1.SelectedValue == )
+
         }
     }
 }
